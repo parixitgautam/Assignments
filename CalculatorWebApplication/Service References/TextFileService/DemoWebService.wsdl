@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="SaveText">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="text" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveTextResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SaveTextResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SaveTextSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveText" />
+  </wsdl:message>
+  <wsdl:message name="SaveTextSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveTextResponse" />
+  </wsdl:message>
+  <wsdl:portType name="DemoWebServiceSoap">
+    <wsdl:operation name="SaveText">
+      <wsdl:input message="tns:SaveTextSoapIn" />
+      <wsdl:output message="tns:SaveTextSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DemoWebServiceSoap" type="tns:DemoWebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SaveText">
+      <soap:operation soapAction="http://tempuri.org/SaveText" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DemoWebServiceSoap12" type="tns:DemoWebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SaveText">
+      <soap12:operation soapAction="http://tempuri.org/SaveText" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DemoWebService">
+    <wsdl:port name="DemoWebServiceSoap" binding="tns:DemoWebServiceSoap">
+      <soap:address location="http://localhost:14500/DemoWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DemoWebServiceSoap12" binding="tns:DemoWebServiceSoap12">
+      <soap12:address location="http://localhost:14500/DemoWebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
